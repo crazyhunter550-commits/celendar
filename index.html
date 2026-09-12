@@ -246,6 +246,13 @@
     padding-top:6px;
     border-top:1px dashed var(--border);
   }
+  .challenge-purpose{
+    font-size:11px;
+    font-weight:600;
+    color:var(--text-dim);
+    margin-bottom:4px;
+    line-height:1.3;
+  }
   .challenge-done-btn{
     flex-shrink:0;
     width:34px; height:34px;
@@ -262,6 +269,139 @@
     background:var(--green);
     border-color:var(--green);
     color:#06140d;
+  }
+  .routine-toggle-btn{
+    display:inline-block;
+    margin-top:10px;
+    font-size:11.5px;
+    font-weight:600;
+    color:var(--text-dim);
+    background:var(--bg-soft);
+    border:1px solid var(--border);
+    padding:6px 12px;
+    border-radius:99px;
+    cursor:pointer;
+    font-family:'Inter', sans-serif;
+  }
+  .routine-toggle-btn.active{
+    background:rgba(95,224,143,.16);
+    border-color:var(--green);
+    color:var(--green);
+  }
+
+  /* ---------- IMPORTANCE LEVELS ---------- */
+  .challenge.importance-high{
+    background:rgba(255,107,107,.08);
+    border-color:var(--danger);
+  }
+  .challenge.importance-high .challenge-eyebrow,
+  .challenge.importance-high .challenge-purpose{ color:var(--danger); }
+  .challenge.importance-high .challenge-duration{
+    color:var(--danger);
+    background:rgba(255,107,107,.15);
+  }
+  .challenge.importance-medium{
+    background:rgba(255,209,102,.08);
+    border-color:var(--yellow);
+  }
+  .challenge.importance-medium .challenge-eyebrow,
+  .challenge.importance-medium .challenge-purpose{ color:var(--yellow); }
+  .challenge.importance-medium .challenge-duration{
+    color:var(--yellow);
+    background:rgba(255,209,102,.15);
+  }
+  .routine-item.importance-high{ border-left:3px solid var(--danger); }
+  .routine-item.importance-medium{ border-left:3px solid var(--yellow); }
+
+  /* ---------- ROUTINES PANEL ---------- */
+  .routines-btn{
+    background:linear-gradient(135deg, rgba(95,224,143,.22), rgba(90,200,250,.16));
+    border-color:var(--green);
+  }
+  .routines-empty{
+    color:var(--text-dim);
+    font-size:13.5px;
+    text-align:center;
+    padding:30px 10px;
+    line-height:1.5;
+  }
+  .routine-item{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    margin-bottom:10px;
+    overflow:hidden;
+  }
+  .routine-item-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:14px 16px;
+    cursor:pointer;
+  }
+  .routine-item-head b{ font-size:14px; line-height:1.35; }
+  .routine-item-stats{
+    font-size:11px;
+    color:var(--text-dim);
+    margin-top:3px;
+  }
+  .routine-item-chevron{
+    flex-shrink:0;
+    color:var(--text-dim);
+    transition:transform .2s ease;
+  }
+  .routine-item.open .routine-item-chevron{ transform:rotate(180deg); }
+  .routine-item-body{
+    display:none;
+    padding:0 16px 16px;
+    font-size:12.5px;
+    color:var(--text-dim);
+    line-height:1.5;
+  }
+  .routine-item.open .routine-item-body{ display:block; }
+  .routine-item-body .r-row{ margin-bottom:8px; }
+  .routine-item-body .r-row b{ color:var(--text); }
+  .routine-item-body .r-row.levelup{
+    background:rgba(95,224,143,.08);
+    border:1px solid rgba(95,224,143,.3);
+    border-radius:var(--radius-sm);
+    padding:8px 10px;
+    margin-top:10px;
+  }
+  .routine-item-body .r-row.levelup b{ color:var(--green); }
+  .routine-actions{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-top:12px;
+  }
+  .routine-mark-btn{
+    font-size:12px;
+    font-weight:600;
+    color:var(--text-dim);
+    background:var(--bg-soft);
+    border:1px solid var(--border);
+    padding:7px 14px;
+    border-radius:99px;
+    cursor:pointer;
+    font-family:'Inter', sans-serif;
+  }
+  .routine-mark-btn.done{
+    background:rgba(95,224,143,.16);
+    border-color:var(--green);
+    color:var(--green);
+  }
+  .routine-remove-btn{
+    font-size:11.5px;
+    color:var(--danger);
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:0;
+    text-decoration:underline;
+    font-family:'Inter', sans-serif;
   }
 
   /* ---------- CALENDAR SLIDER ---------- */
@@ -409,7 +549,7 @@
     cursor:pointer;
   }
   .day.party-day::before{
-    content:'🐻';
+    content:'🎉';
     position:absolute;
     top:-9px;
     font-size:12px;
@@ -759,9 +899,10 @@
     <div class="top-row">
       <span class="eyebrow"><span class="dot"></span>Tracking since <span id="startLabel"></span></span>
       <button class="why-btn" id="openSideBtn">🧠 Remind me why</button>
+      <button class="why-btn routines-btn" id="openRoutinesBtn">📋 My routines</button>
     </div>
     <h1 class="title">Days Without Dopamine Strikes</h1>
-    <p class="subtitle">Fresh receptors, clear head. Every check-in is one step closer to walking into <b>Gummy Bears</b> completely clean.</p>
+    <p class="subtitle">Fresh receptors, clear head. Every check-in is one step closer to the day you'll celebrate — steady, present, on your own terms.</p>
   </div>
 
   <div class="stats">
@@ -779,7 +920,7 @@
     </div>
     <div class="stat-card">
       <span class="stat-num party" id="partyNum">0</span>
-      <span class="stat-lbl">To Gummy Bears</span>
+      <span class="stat-lbl">To Celebration</span>
     </div>
   </div>
 
@@ -805,10 +946,12 @@
   <div class="challenge">
     <div class="challenge-icon">🎯</div>
     <div class="challenge-body">
+      <div class="challenge-purpose" id="challengePurpose"></div>
       <div class="challenge-eyebrow">Today's practice</div>
       <div class="challenge-duration" id="challengeDuration">—</div>
       <div class="challenge-text" id="challengeText">—</div>
       <div class="challenge-science" id="challengeScience"></div>
+      <button class="routine-toggle-btn" id="routineToggleBtn">🔁 Add to my routines</button>
     </div>
     <button class="challenge-done-btn" id="challengeDoneBtn" title="Mark today's practice done">✓</button>
   </div>
@@ -902,12 +1045,23 @@
   </div>
 </div>
 
+<div class="side-overlay" id="routinesOverlay">
+  <div class="side-panel" id="routinesPanel">
+    <div class="side-head">
+      <h2>My routines</h2>
+      <button class="side-close" id="closeRoutinesBtn">✕</button>
+    </div>
+    <p class="side-kicker">Tasks you tried, felt a real difference from, and decided to keep. Tap any one to see why it works and exactly how it's done.</p>
+    <div id="routinesList"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 /* ============ CONFIG — edit these two lines to fit your own timeline ============ */
 const START_DATE = '2026-09-09';   // first day of the streak (today)
-const PARTY_DATE = '2027-01-01';   // 🐻 Gummy Bears party day — change if the date is different
+const PARTY_DATE = '2026-12-31';   // 🎉 the day you'll celebrate — change if the date is different
 /* ================================================================================= */
 
 const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -917,56 +1071,260 @@ const CHALLENGE_STORAGE_KEY = 'dopamine_tracker_challenges_v1';
 
 const CHALLENGES = [
   {
+    id: "cardio",
     title: "30–40 min hard cardio — run, football, cycling, anything that gets your heart rate up and stays there.",
     duration: "30–40 min",
-    science: "Robertson et al. 2016, Neuropsychopharmacology — 8 weeks of aerobic training measurably raised striatal D2/D3 receptor availability in people with reward-circuit deficits, confirmed on PET scans."
+    importance: "high",
+    purpose: "Directly rebuilds the exact dopamine receptors this whole tracker is about.",
+    science: "Robertson et al. 2016, Neuropsychopharmacology — 8 weeks of aerobic training measurably raised striatal D2/D3 receptor availability in people with reward-circuit deficits, confirmed on PET scans.",
+    levelUp: "Once 30–40 min feels manageable, add intervals — 30 sec hard, 90 sec easy — or push to 45–60 min."
   },
   {
-    title: "Write out the entire night of Gummy Bears in first person, present tense — who's there, what you're wearing, how it feels to walk in clean. Minimum one full page.",
-    duration: "20–25 min",
-    science: "Peters & Büchel 2010, Neuron — vividly imagining a specific personal future event strengthened hippocampus–prefrontal connectivity and reduced impulsive choices in the same session."
-  },
-  {
+    id: "declutter",
     title: "Go through your phone and log out of, delete, or block every single app or bookmark that's ever been a trigger. Write the full list down as you do it.",
     duration: "30+ min",
-    science: "Voon et al. 2014, PLOS ONE — cue exposure activated the same craving circuitry in compulsive users as drug cues in addiction. Removing the cue removes the trigger for that circuit."
+    importance: "high",
+    purpose: "Removes the actual cue before it can fire — no willpower needed for a trigger that's gone.",
+    science: "Voon et al. 2014, PLOS ONE — cue exposure activated the same craving circuitry in compulsive users as drug cues in addiction. Removing the cue removes the trigger for that circuit.",
+    levelUp: "Once your triggers are gone, do a second pass weekly: check what's quietly crept back in."
   },
   {
+    id: "skill-practice",
     title: "45+ min of deliberate practice on a real skill — an instrument, a language, a sport drill, weight training with progression. Phone in another room, no music.",
     duration: "45+ min",
-    science: "Robertson et al. 2016 — the same trial found effort-based, goal-directed activity is what drove the receptor changes, not passive rest."
+    importance: "medium",
+    purpose: "Gives your reward circuit a real, earned win instead of a free, instant one.",
+    science: "Robertson et al. 2016 — the same trial found effort-based, goal-directed activity is what drove the receptor changes, not passive rest.",
+    levelUp: "Add one measurable goal each week (a new chord, a faster split, more weight) so the win stays real."
   },
   {
+    id: "urge-surf",
     title: "The next time an urge hits, don't fight it and don't act on it. Set a 20-minute timer, sit with it, and rate its intensity out of 10 every 5 minutes in the notes.",
     duration: "20 min, on-demand",
-    science: "Mindfulness-Based Relapse Prevention (Bowen & Marlatt) — 'urge surfing' has published trial evidence for reducing relapse in addictive behaviours by teaching the brain that urges peak and fall without being obeyed."
+    importance: "high",
+    purpose: "Proves to your own brain, in real time, that an urge peaks and falls on its own.",
+    science: "Mindfulness-Based Relapse Prevention (Bowen & Marlatt) — 'urge surfing' has published trial evidence for reducing relapse in addictive behaviours by teaching the brain that urges peak and fall without being obeyed.",
+    levelUp: "Once 20 minutes feels doable, drop the timer entirely — just ride it out until it actually passes."
   },
   {
+    id: "conversation",
     title: "One real conversation, 30+ minutes, in person or on a call, with someone you actually trust — about anything, not necessarily this.",
     duration: "30+ min",
-    science: "Well-established stress-buffering research (Uchino et al.) — real social contact measurably lowers physiological stress reactivity, which is what usually fires the urge in the first place."
+    importance: "medium",
+    purpose: "Lowers the stress that's usually the actual trigger, before it gets the chance to build.",
+    science: "Well-established stress-buffering research (Uchino et al.) — real social contact measurably lowers physiological stress reactivity, which is what usually fires the urge in the first place.",
+    levelUp: "Move from 'about anything' to naming one real thing you're dealing with — a small step up in honesty each time."
   },
   {
+    id: "deep-work",
     title: "60–90 min of deep, single-task work or study on something you actually want to get good at. No tabs, no phone in the room.",
     duration: "60–90 min",
-    science: "Ties directly to the delay-discounting research below — sustained effort toward a delayed goal is the behaviour that retrains your brain to value the bigger, later reward over the small immediate one."
+    importance: "medium",
+    purpose: "Retrains your brain to value a bigger, slower reward over a small, instant one.",
+    science: "Ties directly to the delay-discounting research below — sustained effort toward a delayed goal is the behaviour that retrains your brain to value the bigger, later reward over the small immediate one.",
+    levelUp: "Add 15 minutes every week or two, and start tracking what you actually produced, not just time spent."
   },
   {
+    id: "zero-input",
     title: "30 minutes with zero input. No phone, no music, no people. Walk, sit, or just stare out a window.",
     duration: "30 min",
-    science: "Builds tolerance for low-stimulation states — the direct opposite of the escalation pattern documented in the Voon et al. cue-reactivity findings."
+    importance: "medium",
+    purpose: "Builds tolerance for boredom — the exact opposite of the escalation pattern that got you here.",
+    science: "Builds tolerance for low-stimulation states — the direct opposite of the escalation pattern documented in the Voon et al. cue-reactivity findings.",
+    levelUp: "Stretch to 45–60 min once 30 feels easy, and try it somewhere with people around instead of alone."
   },
   {
-    title: "Write a letter to yourself dated the night of the party. Tell that version of you exactly what you did today to get him there clean.",
-    duration: "20 min",
-    science: "Narrative Episodic Future Thinking — shown in multiple trials to outperform plain future-imagining for reducing impulsive choices, because a story is more vivid than a fact."
-  },
-  {
+    id: "digital-sunset",
     title: "Full digital sunset: no screens of any kind for the last 90 minutes before bed. Read, stretch, plan tomorrow on paper instead.",
     duration: "90 min",
-    science: "Randomized screen-time-reduction trials have shown measurable mood and self-control improvements over windows as short as two weeks — independent of any 'dopamine' framing."
+    importance: "normal",
+    purpose: "Protects the one recovery window your brain gets every single day.",
+    science: "Randomized screen-time-reduction trials have shown measurable mood and self-control improvements over windows as short as two weeks — independent of any 'dopamine' framing.",
+    levelUp: "Push it to 2 hours before bed once 90 minutes feels normal, then try one full screen-free morning."
+  },
+  {
+    id: "body-sensation",
+    title: "Pick one physical sensation happening in your body right now — not what caused it, not what it means, just the raw sensation (tight, warm, heavy, tingling). Sit with only that description for 5 minutes. No cause, no story.",
+    duration: "5–10 min",
+    importance: "normal",
+    purpose: "Trains feeling something directly, instead of explaining it away.",
+    science: "Farb et al. 2007, Social Cognitive and Affective Neuroscience — mindfulness training measurably shifted brain activity away from the narrative self-network (medial prefrontal cortex) toward the direct-experience network (insula, somatosensory cortex) — the actual neural difference between feeling something and explaining it.",
+    levelUp: "Try naming two sensations at once, then three — the same skill the body scan uses at a bigger scale."
+  },
+  {
+    id: "name-the-feeling",
+    title: "Next time you catch yourself explaining someone's behaviour with a mechanism ('he's doing that because his brain released X'), stop. Instead just name what you feel watching them, one word, nothing else. Catch and write down 3 of these today.",
+    duration: "Ongoing, on-demand",
+    importance: "medium",
+    purpose: "Breaks the habit of analysing people instead of actually feeling anything around them.",
+    science: "Lisa Feldman Barrett's emotional granularity research — people who can precisely label their own felt states, instead of only reasoning about the mechanism behind them, show measurably better emotion regulation and lower stress reactivity.",
+    levelUp: "Once one word feels easy, add a second word for the same moment — most feelings aren't singular."
+  },
+  {
+    id: "heartbeat-count",
+    title: "Close your eyes for 60 seconds and count your own heartbeats by feel alone — no fingers on your pulse. Check how close you were. Repeat 3 times.",
+    duration: "10 min",
+    importance: "normal",
+    purpose: "Sharpens how accurately you sense your own body, not just think about it.",
+    science: "Garfinkel & Critchley 2013, Frontiers in Psychology — interoceptive accuracy (how precisely you sense internal body signals) is trainable through repeated practice like this, and higher accuracy is linked to richer, less detached emotional experience.",
+    levelUp: "Try it standing up, then right after light exercise — accuracy gets harder, which is the point of practicing."
+  },
+  {
+    id: "awe-outside",
+    title: "Go outside and find something genuinely huge — open sky, a tall building, a tree line, the sea if you have it. Just look at it for 10 straight minutes. Don't analyze it, don't photograph it, don't explain it to yourself.",
+    duration: "10 min",
+    importance: "normal",
+    purpose: "A brief, real dose of awe — one of the few things proven to quiet the analysing mind on contact.",
+    science: "Piff et al. 2015, Journal of Personality and Social Psychology — brief awe experiences measurably shrink self-focused, analytical processing (the 'small self' effect) and increase felt connection, replicated across multiple lab and field studies.",
+    levelUp: "Look for less obvious awe too — music, a skill performed well, a huge number — not just physical size."
+  },
+  {
+    id: "silent-meal",
+    title: "Eat one full meal today in total silence — phone away, no one talking. Pay attention only to taste and texture, sensation by sensation, bite by bite.",
+    duration: "20–30 min",
+    importance: "normal",
+    purpose: "Practice staying inside a sensory experience instead of narrating it.",
+    science: "Savoring research (Bryant & Veroff) shows that deliberately staying inside a sensory experience without narrating or analyzing it is a trainable skill that directly raises measured positive affect, separate from just having the experience.",
+    levelUp: "Once one meal feels easy, try a full day of eating with zero screens at any meal."
+  },
+  {
+    id: "nature-walk",
+    title: "Walk for 90 minutes somewhere with real nature — trees, water, open green space. No headphones, no calls.",
+    duration: "90 min",
+    importance: "high",
+    purpose: "Cools the exact rumination circuit that usually feeds the urge in the first place.",
+    science: "Bratman et al. 2015, PNAS — a 90-minute walk in a natural setting (versus an urban one) measurably reduced rumination and lowered activity in a brain region tied to dwelling on negative self-focused thoughts, scanned in the same people before and after.",
+    levelUp: "Extend to 2 hours, or find a quieter, greener route — the effect scales with how natural it feels."
+  },
+  {
+    id: "cold-exposure",
+    title: "Take a genuinely cold shower or cold-water immersion for 1–3 minutes — cold enough to be uncomfortable, not lukewarm.",
+    duration: "1–3 min",
+    importance: "medium",
+    purpose: "A real, drug-free way to raise your own dopamine tone without a screen or a hit.",
+    science: "Šrámek et al. 2000, European Journal of Applied Physiology — cold water immersion produced a sustained rise in plasma dopamine and noradrenaline in healthy adults, measured directly in blood draws, lasting well past the exposure itself.",
+    levelUp: "Drop the temperature or add 15–30 seconds every week or two — let the discomfort fade slowly, not stay the same."
+  },
+  {
+    id: "gratitude-letter",
+    title: "Write a detailed letter thanking someone specific for something real they did for you — then read it to them out loud, in person or on a call. Don't just send it silently.",
+    duration: "30–45 min",
+    importance: "high",
+    purpose: "One of the highest-impact single actions ever tested for mood — and it isn't about you at all.",
+    science: "Seligman et al. 2005, American Psychologist — this single exercise, tested in a randomized trial, produced measurable jumps in happiness and drops in depressive symptoms still detectable a month later — one of the largest single-session effects ever recorded in this field.",
+    levelUp: "Write one every month, to a different person — the effect holds up on repeat, not just the first time."
+  },
+  {
+    id: "loving-kindness",
+    title: "10 minutes of loving-kindness meditation: silently wish specific people — yourself, someone you love, someone neutral — genuine wellbeing, one at a time, in order.",
+    duration: "10 min",
+    importance: "medium",
+    purpose: "Trains the exact circuit dopamine-chasing wears down — feeling good with no reward attached.",
+    science: "Fredrickson et al. 2008, Journal of Personality and Social Psychology — a randomized trial found daily practice built real, measurable increases in positive emotion and social connection over weeks, compounding rather than a one-off mood bump.",
+    levelUp: "Once the sequence feels natural, extend it to someone you're actually in conflict with — the harder, more valuable version."
+  },
+  {
+    id: "expressive-writing",
+    title: "Write continuously for 15–20 minutes about the deepest thoughts and feelings behind whatever's actually been weighing on you. Don't stop to edit, don't reread, just write.",
+    duration: "15–20 min",
+    importance: "normal",
+    purpose: "Turns whatever's looping silently in your head into something finished, instead of running forever.",
+    science: "Pennebaker &amp; Beall 1986, and dozens of replications since — expressive writing about a real personal difficulty produced measurable drops in stress markers and improved mood in the months after, compared with writing about a neutral topic.",
+    levelUp: "Do it 3–4 days in a row on the same topic — the original research used repeated sessions, not one."
+  },
+  {
+    id: "morning-light",
+    title: "Get outside within an hour of waking and get 10–15 minutes of direct daylight — no sunglasses, no phone.",
+    duration: "10–15 min",
+    importance: "medium",
+    purpose: "Anchors your body clock, which directly affects mood and impulse control for the rest of the day.",
+    science: "Golden et al. 2005, American Journal of Psychiatry — a meta-analysis of controlled trials found bright light exposure produced antidepressant effects comparable to many standard treatments, measurable within days.",
+    levelUp: "If it's cloudy or winter, stretch it to 20–30 minutes — you need more exposure when the light itself is weaker."
+  },
+  {
+    id: "strength-training",
+    title: "30+ minutes of resistance or weight training — real sets, real effort, progressive load if you can manage it.",
+    duration: "30+ min",
+    importance: "medium",
+    purpose: "One of the most consistently proven ways to lower anxiety — not just build muscle.",
+    science: "O'Connor et al. 2010, Exercise and Sport Sciences Reviews — a meta-analysis of dozens of controlled human trials found resistance training was linked to significant reductions in anxiety symptoms.",
+    levelUp: "Add weight or reps every 1–2 weeks — the anxiety-reduction effect tracks with progressive overload, not just showing up."
+  },
+  {
+    id: "reappraisal",
+    title: "Pick one thing that's stressing you right now. Write it down, then write a second, more accurate and less catastrophic way of seeing the exact same fact.",
+    duration: "10–15 min",
+    importance: "high",
+    purpose: "This single skill, tested directly in the brain, physically turns your amygdala down.",
+    science: "Ochsner et al. 2002, Journal of Cognitive Neuroscience — reappraising the meaning of a distressing image measurably reduced amygdala activation on fMRI, in real time, within the same session.",
+    levelUp: "Once small stressors feel easy, try it on a bigger one — the skill transfers, but it's built on small reps first."
+  },
+  {
+    id: "prosocial-spending",
+    title: "Spend even a small amount of money on someone else today — a gift, a coffee, help with a bill. Not on yourself.",
+    duration: "15+ min",
+    importance: "normal",
+    purpose: "Genuinely more effective at lifting your own mood than spending the same amount on yourself.",
+    science: "Dunn, Aknin &amp; Norton 2008, Science — in a randomized study, people assigned to spend money on someone else reported significantly greater happiness that evening than those told to spend it on themselves.",
+    levelUp: "Increase the amount slightly over time, and try doing it for a stranger, not just people you already know."
+  },
+  {
+    id: "warm-contact",
+    title: "A real hug or sustained physical contact (10+ seconds) with someone you trust — partner, close friend, family.",
+    duration: "10+ sec, repeatable",
+    importance: "normal",
+    purpose: "A fast, measurable way to lower stress hormones without touching a screen.",
+    science: "Light, Grewen &amp; Amico 2005, Biological Psychology — more frequent partner hugs and contact were linked to higher oxytocin and lower blood pressure and heart rate in the same people, measured directly.",
+    levelUp: "Extend the contact to 20–30 seconds — longer contact is linked to a bigger oxytocin response in this research."
+  },
+  {
+    id: "body-scan",
+    title: "15-minute full body scan: lie down and move your attention slowly through every part of your body in order, noticing sensation without changing anything.",
+    duration: "15 min",
+    importance: "normal",
+    purpose: "Builds the same interoceptive skill as the heartbeat task, at a slower, fuller scale.",
+    science: "Grossman et al. 2004, Journal of Psychosomatic Research — a meta-analysis of mindfulness-based stress reduction programs, which use this exact exercise, found consistent, moderate-to-large reductions in stress and anxiety.",
+    levelUp: "Slow it down further — spend a full minute on each body part instead of moving quickly through the whole thing."
+  },
+  {
+    id: "values-writing",
+    title: "Write for 10 minutes about the one personal value that matters most to you, and a specific time you actually lived it. Nothing about the thing you're giving up.",
+    duration: "10 min",
+    importance: "high",
+    purpose: "Makes your self-control physically more resilient under stress, not just more motivated.",
+    science: "Creswell et al. 2005, Psychological Science — writing about a core personal value before a stressful task measurably blunted the cortisol stress response, compared with writing about something neutral.",
+    levelUp: "Do this specifically on a morning you know will be stressful — that's exactly when the effect was measured."
+  },
+  {
+    id: "cold-face",
+    title: "Fill a bowl with ice water and hold your breath while submerging your face for 20–30 seconds. Repeat once or twice.",
+    duration: "2–5 min",
+    importance: "medium",
+    purpose: "A fast physiological reset, used clinically to bring a spiking nervous system back down within minutes.",
+    science: "The mammalian dive reflex, used clinically as the 'TIPP' skill in Dialectical Behaviour Therapy (Linehan) — cold facial immersion reliably triggers a rapid drop in heart rate via the vagus nerve, documented in physiological studies of the reflex.",
+    levelUp: "Extend each submersion by 5–10 seconds over time, always staying within what's medically safe for you."
+  },
+  {
+    id: "behavioral-activation",
+    title: "Schedule and actually do one small enjoyable activity and one small 'accomplishment' activity today — pick both in advance, in writing, before the day gets away from you.",
+    duration: "Varies",
+    importance: "high",
+    purpose: "This exact mechanism is one of the most proven treatments for low mood that exists, independent of medication.",
+    science: "Dimidjian et al. 2006, Journal of Consulting and Clinical Psychology — behavioural activation (scheduling and completing meaningful activities) performed as well as antidepressant medication for moderate-to-severe depression in a randomized clinical trial.",
+    levelUp: "Add a third category — something social — once the first two feel automatic."
+  },
+  {
+    id: "future-self",
+    title: "Picture yourself exactly one year from today in specific, concrete detail — where you are, what a normal day looks like, how you carry yourself. Write it in the present tense.",
+    duration: "15–20 min",
+    importance: "medium",
+    purpose: "Makes your future self feel like a real person to your brain instead of an abstraction — and that changes what you're willing to do today.",
+    science: "Hershfield et al. 2011, Journal of Marketing Research — increasing the vividness of a person's future self, even through simple visualization, measurably reduced impulsive, present-biased choices in the same session.",
+    levelUp: "Push the timeline out further — 5 years instead of 1 — and add real detail about health and relationships, not just achievements."
   }
 ];
+
+function getChallengeById(id){ return CHALLENGES.find(c => c.id === id); }
 
 function hashDate(key){
   let h = 0;
@@ -991,8 +1349,43 @@ let challengeData = {};
 try{ challengeData = JSON.parse(localStorage.getItem(CHALLENGE_STORAGE_KEY)) || {}; }catch(e){ challengeData = {}; }
 function saveChallenges(){ localStorage.setItem(CHALLENGE_STORAGE_KEY, JSON.stringify(challengeData)); }
 
+const ROUTINES_STORAGE_KEY = 'dopamine_tracker_routines_v1';
+let routines = {};
+try{ routines = JSON.parse(localStorage.getItem(ROUTINES_STORAGE_KEY)) || {}; }catch(e){ routines = {}; }
+function saveRoutines(){ localStorage.setItem(ROUTINES_STORAGE_KEY, JSON.stringify(routines)); }
+
+const ROUTINE_LOG_KEY = 'dopamine_tracker_routine_logs_v1';
+let routineLogs = {};
+try{ routineLogs = JSON.parse(localStorage.getItem(ROUTINE_LOG_KEY)) || {}; }catch(e){ routineLogs = {}; }
+function saveRoutineLogs(){ localStorage.setItem(ROUTINE_LOG_KEY, JSON.stringify(routineLogs)); }
+
+function routineStats(id){
+  const log = routineLogs[id] || {};
+  const total = Object.keys(log).filter(k => log[k]).length;
+  let streak = 0;
+  let cursor = new Date(today);
+  while (true){
+    const key = toKey(cursor);
+    if (log[key]){ streak++; cursor.setDate(cursor.getDate()-1); }
+    else break;
+  }
+  const lastKey = Object.keys(log).filter(k=>log[k]).sort().pop();
+  return { total, streak, lastDate: lastKey || null };
+}
+
+function toggleRoutineToday(id){
+  const key = toKey(today);
+  routineLogs[id] = routineLogs[id] || {};
+  routineLogs[id][key] = !routineLogs[id][key];
+  saveRoutineLogs();
+}
+
 function getChallengeForDate(dateObj){
-  const idx = hashDate(toKey(dateObj)) % CHALLENGES.length;
+  const h = hashDate(toKey(dateObj));
+  // Purely random-feeling, but stable for the day: roughly half the days
+  // have no scheduled practice at all — you don't know in advance which.
+  if (h % 100 < 45) return null;
+  const idx = Math.floor(h / 97) % CHALLENGES.length;
   return CHALLENGES[idx];
 }
 
@@ -1187,12 +1580,42 @@ function updateStats(totalEligible, totalChecked){
 function renderChallenge(){
   const key = toKey(today);
   const c = getChallengeForDate(today);
+  const card = document.querySelector('.challenge');
+  const btn = document.getElementById('challengeDoneBtn');
+  const routineBtn = document.getElementById('routineToggleBtn');
+  const purposeEl = document.getElementById('challengePurpose');
+  const eyebrow = document.querySelector('.challenge-eyebrow');
+
+  card.classList.remove('importance-high','importance-medium','importance-normal');
+
+  if (!c){
+    card.classList.add('importance-normal');
+    purposeEl.textContent = 'No set practice today';
+    purposeEl.style.display = '';
+    eyebrow.textContent = 'Today';
+    document.getElementById('challengeDuration').textContent = '—';
+    document.getElementById('challengeText').textContent = 'Nothing scheduled today. Nothing to prove — just notice how today feels.';
+    document.getElementById('challengeScience').textContent = '';
+    btn.style.display = 'none';
+    routineBtn.style.display = 'none';
+    return;
+  }
+
+  card.classList.add('importance-' + c.importance);
+  purposeEl.style.display = '';
+  purposeEl.textContent = c.purpose;
+  eyebrow.textContent = "Today's practice" + (c.importance === 'high' ? ' — core' : c.importance === 'medium' ? ' — worth it' : '');
   document.getElementById('challengeDuration').textContent = c.duration;
   document.getElementById('challengeText').textContent = c.title;
   document.getElementById('challengeScience').textContent = '🔬 ' + c.science;
-  const btn = document.getElementById('challengeDoneBtn');
+  btn.style.display = '';
   const done = !!challengeData[key];
   btn.classList.toggle('done', done);
+
+  routineBtn.style.display = '';
+  const inRoutine = !!routines[c.id];
+  routineBtn.textContent = inRoutine ? '✓ In my routines' : '🔁 Add to my routines';
+  routineBtn.classList.toggle('active', inRoutine);
 }
 
 document.getElementById('challengeDoneBtn').addEventListener('click', ()=>{
@@ -1202,6 +1625,87 @@ document.getElementById('challengeDoneBtn').addEventListener('click', ()=>{
   renderChallenge();
   if (challengeData[key]) showToast('Challenge done 🎯');
 });
+
+document.getElementById('routineToggleBtn').addEventListener('click', ()=>{
+  const c = getChallengeForDate(today);
+  if (!c) return;
+  routines[c.id] = !routines[c.id];
+  saveRoutines();
+  renderChallenge();
+  renderRoutinesList();
+  showToast(routines[c.id] ? 'Added to your routines 🔁' : 'Removed from your routines');
+});
+
+/* ---------- routines panel ---------- */
+function renderRoutinesList(){
+  const list = document.getElementById('routinesList');
+  const ids = Object.keys(routines).filter(id => routines[id]);
+  if (ids.length === 0){
+    list.innerHTML = '<p class="routines-empty">No routines yet. When a task actually makes a difference, open it and tap "Add to my routines" — it\'ll show up here with its own tracking.</p>';
+    return;
+  }
+  const todayKey = toKey(today);
+  list.innerHTML = ids.map(id => {
+    const c = getChallengeById(id);
+    if (!c) return '';
+    const tagLabel = c.importance === 'high' ? '🔴 Core practice' : c.importance === 'medium' ? '🟡 Also worth it' : '';
+    const stats = routineStats(id);
+    const doneToday = !!(routineLogs[id] && routineLogs[id][todayKey]);
+    return `
+      <div class="routine-item importance-${c.importance}" data-id="${id}">
+        <div class="routine-item-head">
+          <div>
+            <b>${c.title.split(/[—.]/)[0].trim()}</b>
+            <div class="routine-item-stats">🔥 ${stats.streak}-day streak · ${stats.total} total</div>
+          </div>
+          <span class="routine-item-chevron">▾</span>
+        </div>
+        <div class="routine-item-body">
+          <div class="r-row"><b>Why:</b> ${c.purpose}</div>
+          <div class="r-row"><b>What to do:</b> ${c.title}</div>
+          <div class="r-row"><b>How long:</b> ${c.duration}${tagLabel ? ' · ' + tagLabel : ''}</div>
+          <div class="r-row"><b>The science:</b> 🔬 ${c.science}</div>
+          <div class="r-row levelup"><b>🔼 How to strengthen it:</b> ${c.levelUp || 'Keep the routine consistent before changing anything — consistency is the foundation.'}</div>
+          <div class="routine-actions">
+            <button class="routine-mark-btn ${doneToday ? 'done' : ''}" data-mark="${id}">${doneToday ? '✓ Done today' : 'Mark done today'}</button>
+            <button class="routine-remove-btn" data-remove="${id}">Remove from my routines</button>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  list.querySelectorAll('.routine-item-head').forEach(head=>{
+    head.addEventListener('click', ()=> head.closest('.routine-item').classList.toggle('open'));
+  });
+  list.querySelectorAll('[data-mark]').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const id = btn.getAttribute('data-mark');
+      toggleRoutineToday(id);
+      renderRoutinesList();
+      const item = list.querySelector(`.routine-item[data-id="${id}"]`);
+      if (item) item.classList.add('open');
+    });
+  });
+  list.querySelectorAll('[data-remove]').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const id = btn.getAttribute('data-remove');
+      routines[id] = false;
+      saveRoutines();
+      renderRoutinesList();
+      renderChallenge();
+    });
+  });
+}
+
+const routinesOverlay = document.getElementById('routinesOverlay');
+document.getElementById('openRoutinesBtn').addEventListener('click', ()=>{
+  renderRoutinesList();
+  routinesOverlay.classList.add('open');
+});
+document.getElementById('closeRoutinesBtn').addEventListener('click', ()=> routinesOverlay.classList.remove('open'));
+routinesOverlay.addEventListener('click', (e)=>{ if (e.target === routinesOverlay) routinesOverlay.classList.remove('open'); });
 
 /* ---------- modal ---------- */
 const overlay = document.getElementById('overlay');
@@ -1218,12 +1722,12 @@ function openModal(key){
   activeKey = key;
   const d = parseDate(key);
   const isParty = sameDay(d, partyDate);
-  modalDate.textContent = d.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'}) + (isParty ? '  🐻' : '');
+  modalDate.textContent = d.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'}) + (isParty ? '  🎉' : '');
   const entry = data[key];
   const checked = !!(entry && entry.checked);
-  modalSub.textContent = isParty ? "It's party day. However it goes, log it." : (checked ? 'Already marked clean — edit your note or unmark.' : 'How did today go?');
+  modalSub.textContent = isParty ? "It's the day you're celebrating. However it goes, log it." : (checked ? 'Already marked clean — edit your note or unmark.' : 'How did today go?');
   const dayChallenge = getChallengeForDate(d);
-  modalChallenge.textContent = '🎯 [' + dayChallenge.duration + '] ' + dayChallenge.title;
+  modalChallenge.textContent = dayChallenge ? ('🎯 [' + dayChallenge.duration + '] ' + dayChallenge.title) : '🎯 No practice was scheduled that day.';
   modalNote.value = entry && entry.note ? entry.note : '';
   btnUnmark.style.display = checked ? 'inline-block' : 'none';
   btnSave.textContent = checked ? 'Save note' : 'Mark clean ✓';
@@ -1234,7 +1738,7 @@ function closeModal(){ overlay.classList.remove('open'); activeKey = null; }
 
 btnCancel.addEventListener('click', closeModal);
 overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(); });
-document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ closeModal(); closeSide(); }});
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ closeModal(); closeSide(); routinesOverlay.classList.remove('open'); }});
 
 btnSave.addEventListener('click', ()=>{
   if (!activeKey) return;
@@ -1242,7 +1746,7 @@ btnSave.addEventListener('click', ()=>{
   save();
   closeModal();
   render();
-  showToast(sameDay(parseDate(activeKey), partyDate) ? 'Logged 🐻' : 'Marked clean ✓');
+  showToast(sameDay(parseDate(activeKey), partyDate) ? 'Logged 🎉' : 'Marked clean ✓');
 });
 
 btnUnmark.addEventListener('click', ()=>{
