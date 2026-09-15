@@ -6,7 +6,7 @@
 <title>Days Without Dopamine Strikes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Bebas+Neue&family=Jomhuria&family=Changa:wght@600;700&family=Cairo:wght@400;600&display=swap" rel="stylesheet">
 
 <!-- PWA: makes the site installable and usable offline -->
 <link rel="manifest" href="manifest.json">
@@ -33,6 +33,12 @@
     --purple:#a78bfa;
     --blue:#5ac8fa;
     --danger:#ff6b6b;
+    --red-vivid:#ff2020;
+    --orange:#ff9d42;
+    --teal:#2dd9c4;
+    --gold:#d3af57;
+    --note-red:#e11414;
+    --note-red-deep:#5c0000;
     --radius-lg:20px;
     --radius-md:14px;
     --radius-sm:9px;
@@ -199,121 +205,7 @@
     letter-spacing:.05em;
   }
 
-  /* ---------- CHALLENGE CARD ---------- */
-  .challenge{
-    background:linear-gradient(135deg, rgba(167,139,250,.14), rgba(90,200,250,.08));
-    border:1px solid var(--purple);
-    border-radius:var(--radius-lg);
-    padding:18px 20px;
-    margin-bottom:24px;
-    display:flex;
-    align-items:center;
-    gap:14px;
-  }
-  .challenge-icon{
-    font-size:26px;
-    flex-shrink:0;
-  }
-  .challenge-body{ flex:1; min-width:0; }
-  .challenge-eyebrow{
-    font-size:10.5px;
-    color:var(--purple);
-    text-transform:uppercase;
-    letter-spacing:.06em;
-    font-weight:600;
-    margin-bottom:3px;
-  }
-  .challenge-text{
-    font-size:14.5px;
-    line-height:1.4;
-    font-weight:600;
-  }
-  .challenge-duration{
-    display:inline-block;
-    font-size:10px;
-    font-weight:600;
-    color:var(--blue);
-    background:rgba(90,200,250,.14);
-    padding:2px 8px;
-    border-radius:99px;
-    margin-bottom:6px;
-  }
-  .challenge-science{
-    font-size:11.5px;
-    color:var(--text-dim);
-    line-height:1.4;
-    margin-top:6px;
-    padding-top:6px;
-    border-top:1px dashed var(--border);
-  }
-  .challenge-purpose{
-    font-size:11px;
-    font-weight:600;
-    color:var(--text-dim);
-    margin-bottom:4px;
-    line-height:1.3;
-  }
-  .challenge-done-btn{
-    flex-shrink:0;
-    width:34px; height:34px;
-    border-radius:50%;
-    border:1.5px solid var(--border);
-    background:var(--bg-soft);
-    color:var(--text-dim);
-    cursor:pointer;
-    display:flex; align-items:center; justify-content:center;
-    font-size:15px;
-    transition:.15s ease;
-  }
-  .challenge-done-btn.done{
-    background:var(--green);
-    border-color:var(--green);
-    color:#06140d;
-  }
-  .routine-toggle-btn{
-    display:inline-block;
-    margin-top:10px;
-    font-size:11.5px;
-    font-weight:600;
-    color:var(--text-dim);
-    background:var(--bg-soft);
-    border:1px solid var(--border);
-    padding:6px 12px;
-    border-radius:99px;
-    cursor:pointer;
-    font-family:'Inter', sans-serif;
-  }
-  .routine-toggle-btn.active{
-    background:rgba(95,224,143,.16);
-    border-color:var(--green);
-    color:var(--green);
-  }
-
-  /* ---------- IMPORTANCE LEVELS ---------- */
-  .challenge.importance-high{
-    background:rgba(255,107,107,.08);
-    border-color:var(--danger);
-  }
-  .challenge.importance-high .challenge-eyebrow,
-  .challenge.importance-high .challenge-purpose{ color:var(--danger); }
-  .challenge.importance-high .challenge-duration{
-    color:var(--danger);
-    background:rgba(255,107,107,.15);
-  }
-  .challenge.importance-medium{
-    background:rgba(255,209,102,.08);
-    border-color:var(--yellow);
-  }
-  .challenge.importance-medium .challenge-eyebrow,
-  .challenge.importance-medium .challenge-purpose{ color:var(--yellow); }
-  .challenge.importance-medium .challenge-duration{
-    color:var(--yellow);
-    background:rgba(255,209,102,.15);
-  }
-  .routine-item.importance-high{ border-left:3px solid var(--danger); }
-  .routine-item.importance-medium{ border-left:3px solid var(--yellow); }
-
-  /* ---------- ROUTINES PANEL ---------- */
+  /* ---------- NOTES PANEL ---------- */
   .routines-btn{
     background:linear-gradient(135deg, rgba(95,224,143,.22), rgba(90,200,250,.16));
     border-color:var(--green);
@@ -325,84 +217,231 @@
     padding:30px 10px;
     line-height:1.5;
   }
-  .routine-item{
+  .note-composer{
     background:var(--card);
     border:1px solid var(--border);
+    border-top:2px solid var(--gold);
     border-radius:var(--radius-md);
-    margin-bottom:10px;
-    overflow:hidden;
+    padding:14px;
+    margin-bottom:18px;
   }
-  .routine-item-head{
+  .note-composer input#noteTitleInput,
+  .note-composer input#noteTopicInput{
+    width:100%;
+    background:var(--bg-soft);
+    border:1px solid var(--border);
+    border-radius:var(--radius-sm);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    font-size:13.5px;
+    font-weight:600;
+    padding:10px 12px;
+    margin-bottom:10px;
+    direction:rtl;
+    text-align:right;
+  }
+  .note-composer textarea{
+    width:100%;
+    min-height:70px;
+    resize:vertical;
+    background:var(--bg-soft);
+    border:1px solid var(--border);
+    border-radius:var(--radius-sm);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    font-size:13.5px;
+    padding:10px 12px;
+    margin-bottom:10px;
+    direction:rtl;
+    text-align:right;
+  }
+  .note-color-row{
     display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+    flex-wrap:wrap;
+  }
+  .note-color-label{
+    font-size:11.5px;
+    color:var(--text-dim);
+    font-weight:600;
+  }
+  .note-color-picker{ display:flex; gap:8px; flex-wrap:wrap; }
+  .note-color-dot{
+    width:22px; height:22px;
+    border-radius:50%;
+    border:2px solid transparent;
+    cursor:pointer;
+    padding:0;
+  }
+  .note-color-dot.selected{
+    border-color:var(--gold);
+    box-shadow:0 0 0 2px var(--bg-soft);
+  }
+  .note-save-btn{
+    width:100%;
+    background:linear-gradient(135deg, #1a1a1a, #000);
+    color:var(--gold);
+    border:1px solid var(--gold);
+    border-radius:8px;
+    padding:10px 14px;
+    font-size:22px;
+    font-weight:400;
+    letter-spacing:.04em;
+    line-height:1;
+    text-transform:uppercase;
+    cursor:pointer;
+    font-family:'Jomhuria', 'Bebas Neue', 'Inter', sans-serif;
+    transition:transform .1s ease, box-shadow .15s ease;
+  }
+  .note-save-btn:active{ transform:scale(.98); }
+  .note-save-btn:hover{ box-shadow:0 0 0 1px var(--gold), 0 6px 18px rgba(225,20,20,.25); }
+  .note-cancel-edit-btn{
+    width:100%;
+    background:none;
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    border-radius:99px;
+    padding:9px 14px;
+    font-size:12.5px;
+    font-weight:600;
+    cursor:pointer;
+    font-family:'Inter', sans-serif;
+    margin-top:8px;
+  }
+  .note-item{
+    position:relative;
+    border-radius:16px;
+    margin-bottom:14px;
+    overflow:hidden;
+    background:#000;
+    border:2px solid var(--note-strong, var(--gold));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+    color:var(--text);
+    transition:box-shadow .2s ease, transform .15s ease;
+  }
+  .note-item:hover{ transform:translateY(-1px); }
+  .note-item:hover, .note-item.open{
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 10px 28px -14px var(--note-strong, var(--gold));
+  }
+  .note-item-head, .note-item-body{ position:relative; z-index:1; }
+  .note-item-head{
+    display:flex;
+    flex-direction:row-reverse;
     align-items:center;
     justify-content:space-between;
     gap:10px;
+    padding:16px 16px 14px;
+    cursor:pointer;
+  }
+  .note-item-title{
+    font-family:'Changa', sans-serif;
+    font-weight:700;
+    font-size:22px;
+    line-height:1.3;
+    letter-spacing:.01em;
+    color:var(--note-strong, var(--gold));
+    direction:rtl;
+    text-align:right;
+    unicode-bidi:plaintext;
+  }
+  .note-item-chevron{
+    flex-shrink:0;
+    width:26px;
+    height:26px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    font-size:12px;
+    transition:transform .2s ease, border-color .2s ease, color .2s ease;
+  }
+  .note-item.open .note-item-chevron{
+    transform:rotate(180deg);
+    border-color:var(--note-strong, var(--gold));
+    color:var(--note-strong, var(--gold));
+  }
+  .note-item-divider{
+    height:2px;
+    width:100%;
+    background:linear-gradient(90deg, var(--note-strong, var(--gold)), transparent 85%);
+  }
+  .note-item-topic-wrap{
     padding:14px 16px;
     cursor:pointer;
   }
-  .routine-item-head b{ font-size:14px; line-height:1.35; }
-  .routine-item-stats{
-    font-size:11px;
-    color:var(--text-dim);
-    margin-top:3px;
+  .note-item-topic{
+    background:#000;
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:10px;
+    padding:12px 14px;
+    font-family:'Cairo', sans-serif;
+    font-weight:600;
+    font-size:15px;
+    color:var(--text);
+    direction:rtl;
+    text-align:right;
+    unicode-bidi:plaintext;
   }
-  .routine-item-chevron{
-    flex-shrink:0;
-    color:var(--text-dim);
-    transition:transform .2s ease;
-  }
-  .routine-item.open .routine-item-chevron{ transform:rotate(180deg); }
-  .routine-item-body{
+  .note-item-body{
     display:none;
     padding:0 16px 16px;
-    font-size:12.5px;
-    color:var(--text-dim);
-    line-height:1.5;
   }
-  .routine-item.open .routine-item-body{ display:block; }
-  .routine-item-body .r-row{ margin-bottom:8px; }
-  .routine-item-body .r-row b{ color:var(--text); }
-  .routine-item-body .r-row.levelup{
-    background:rgba(95,224,143,.08);
-    border:1px solid rgba(95,224,143,.3);
-    border-radius:var(--radius-sm);
-    padding:8px 10px;
-    margin-top:10px;
+  .note-item.open .note-item-body{ display:block; }
+  .note-item-text{
+    font-family:'Cairo', sans-serif;
+    font-weight:400;
+    font-size:15px;
+    line-height:1.8;
+    color:var(--text);
+    white-space:pre-wrap;
+    margin-bottom:12px;
+    padding:12px 14px;
+    background:#000;
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:10px;
+    direction:rtl;
+    text-align:right;
+    unicode-bidi:plaintext;
   }
-  .routine-item-body .r-row.levelup b{ color:var(--green); }
-  .routine-actions{
+  .note-item-foot{
     display:flex;
-    gap:10px;
+    flex-direction:row-reverse;
     align-items:center;
-    flex-wrap:wrap;
-    margin-top:12px;
+    justify-content:space-between;
+    gap:14px;
   }
-  .routine-mark-btn{
-    font-size:12px;
+  .note-item-date{
+    font-size:11px;
+    color:var(--text-faint);
+  }
+  .note-item-actions{ display:flex; gap:16px; }
+  .note-edit-btn, .note-remove-btn{
+    font-size:11px;
     font-weight:600;
+    letter-spacing:.04em;
+    text-transform:uppercase;
     color:var(--text-dim);
-    background:var(--bg-soft);
-    border:1px solid var(--border);
-    padding:7px 14px;
-    border-radius:99px;
-    cursor:pointer;
-    font-family:'Inter', sans-serif;
-  }
-  .routine-mark-btn.done{
-    background:rgba(95,224,143,.16);
-    border-color:var(--green);
-    color:var(--green);
-  }
-  .routine-remove-btn{
-    font-size:11.5px;
-    color:var(--danger);
     background:none;
     border:none;
     cursor:pointer;
     padding:0;
-    text-decoration:underline;
     font-family:'Inter', sans-serif;
+    transition:color .15s ease;
   }
+  .note-edit-btn:hover{ color:var(--gold); }
+  .note-remove-btn:hover{ color:var(--note-red); }
+  .note-color-pink{ --note-strong:#ff2f7f; --note-tint:rgba(255,47,127,0.14); }
+  .note-color-yellow{ --note-strong:#e6980a; --note-tint:rgba(230,152,10,0.14); }
+  .note-color-green{ --note-strong:#12a85c; --note-tint:rgba(18,168,92,0.14); }
+  .note-color-purple{ --note-strong:#6d3ff5; --note-tint:rgba(109,63,245,0.14); }
+  .note-color-blue{ --note-strong:#0d8fce; --note-tint:rgba(13,143,206,0.14); }
+  .note-color-orange{ --note-strong:#e56a00; --note-tint:rgba(229,106,0,0.14); }
+  .note-color-teal{ --note-strong:#0c9484; --note-tint:rgba(12,148,132,0.14); }
+  .note-color-danger{ --note-strong:#ff2020; --note-tint:rgba(255,32,32,0.14); }
 
   /* ---------- CALENDAR SLIDER ---------- */
   .cal-nav{
@@ -499,10 +538,7 @@
   .day.out-of-range{ color:var(--text-faint); }
 
   .day.eligible{
-    background:var(--card-hi);
-    border-color:var(--border);
     cursor:pointer;
-    color:var(--text);
     transition:transform .12s ease, border-color .12s ease;
   }
   .day.eligible:hover{
@@ -614,17 +650,6 @@
     color:var(--text-dim);
     margin:0 0 12px;
   }
-  .modal-challenge{
-    font-size:12px;
-    color:var(--purple);
-    background:rgba(167,139,250,.12);
-    border:1px solid rgba(167,139,250,.3);
-    border-radius:10px;
-    padding:8px 10px;
-    margin-bottom:14px;
-    line-height:1.4;
-  }
-
   .modal textarea{
     width:100%;
     min-height:80px;
@@ -722,6 +747,37 @@
     color:var(--text-dim);
     cursor:pointer;
     flex-shrink:0;
+  }
+
+  /* ---------- NOTES: premium/sport identity, pulled from the black+red+gold flatlay ---------- */
+  #notesPanel{
+    background:
+      radial-gradient(600px 320px at 100% -10%, rgba(225,20,20,.16), transparent 60%),
+      var(--bg-soft);
+  }
+  #notesPanel .side-head{
+    align-items:center;
+    margin-bottom:2px;
+  }
+  #notesPanel .side-head h2{
+    font-family:'Jomhuria', 'Bebas Neue', 'Fredoka', sans-serif;
+    font-weight:400;
+    font-size:46px;
+    line-height:1;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    background:linear-gradient(100deg, #fff 0%, var(--gold) 55%, var(--note-red) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  #notesPanel .side-kicker{
+    font-size:12.5px;
+    letter-spacing:.01em;
+    padding-bottom:14px;
+    margin-bottom:16px;
+    border-bottom:1px solid;
+    border-image:linear-gradient(90deg, var(--note-red), transparent) 1;
   }
   .side-kicker{
     font-size:12.5px;
@@ -834,43 +890,6 @@
     transform:translateX(-50%) translateY(0);
   }
 
-  /* ---------- TRIGGER BANNER ---------- */
-  .trigger-banner{
-    background:rgba(255,107,107,.07);
-    border:1px solid var(--danger);
-    border-radius:var(--radius-lg);
-    padding:16px 18px;
-    margin-bottom:24px;
-  }
-  .trigger-title{
-    font-size:10.5px;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:.06em;
-    color:var(--danger);
-    margin-bottom:10px;
-  }
-  .trigger-row{
-    display:flex;
-    gap:10px;
-    align-items:flex-start;
-    font-size:13.5px;
-    line-height:1.5;
-    color:var(--text-dim);
-    margin-bottom:8px;
-  }
-  .trigger-row:last-of-type{ margin-bottom:0; }
-  .trigger-icon{ flex-shrink:0; font-size:15px; }
-  .trigger-row b{ color:var(--text); font-weight:600; }
-  .trigger-science{
-    font-size:11px;
-    color:var(--text-dim);
-    margin-top:10px;
-    padding-top:10px;
-    border-top:1px dashed rgba(255,107,107,.3);
-    line-height:1.5;
-  }
-
   footer{
     text-align:center;
     color:var(--text-faint);
@@ -887,7 +906,6 @@
     .stat-num{ font-size:24px; }
     .month{ padding:14px; }
     .day{ font-size:12px; }
-    .challenge{ padding:14px; }
   }
 </style>
 </head>
@@ -899,7 +917,7 @@
     <div class="top-row">
       <span class="eyebrow"><span class="dot"></span>Tracking since <span id="startLabel"></span></span>
       <button class="why-btn" id="openSideBtn">🧠 Remind me why</button>
-      <button class="why-btn routines-btn" id="openRoutinesBtn">📋 My routines</button>
+      <button class="why-btn routines-btn" id="openNotesBtn">📝 Notes</button>
     </div>
     <h1 class="title">Days Without Dopamine Strikes</h1>
     <p class="subtitle">Fresh receptors, clear head. Every check-in is one step closer to the day you'll celebrate — steady, present, on your own terms.</p>
@@ -936,26 +954,6 @@
 
   <div class="cal-dots" id="calDots"></div>
 
-  <div class="trigger-banner">
-    <div class="trigger-title">⚠️ Pre-committed plan — decided now, not in the moment</div>
-    <div class="trigger-row"><span class="trigger-icon">🚫</span><span><b>Don't close the balcony door to be alone with it.</b> Leave it open — no exceptions, no negotiating.</span></div>
-    <div class="trigger-row"><span class="trigger-icon">↪️</span><span>If the urge hits anyway while you're alone: <b>stand up, leave the room, go be around people (even just elsewhere in the house) for 10 minutes.</b> Decide this now so you don't have to decide it then.</span></div>
-    <div class="trigger-science">🔬 Gollwitzer &amp; Sheeran, 2006 — a meta-analysis of 94 studies and 8,000+ people found that pre-deciding your exact response to a trigger roughly doubles the odds you actually follow through, compared with just intending to resist.</div>
-  </div>
-
-  <div class="challenge">
-    <div class="challenge-icon">🎯</div>
-    <div class="challenge-body">
-      <div class="challenge-purpose" id="challengePurpose"></div>
-      <div class="challenge-eyebrow">Today's practice</div>
-      <div class="challenge-duration" id="challengeDuration">—</div>
-      <div class="challenge-text" id="challengeText">—</div>
-      <div class="challenge-science" id="challengeScience"></div>
-      <button class="routine-toggle-btn" id="routineToggleBtn">🔁 Add to my routines</button>
-    </div>
-    <button class="challenge-done-btn" id="challengeDoneBtn" title="Mark today's practice done">✓</button>
-  </div>
-
   <footer>Swipe or drag the calendar to move between months. Tap any unlocked day to check it off and leave yourself a note. Everything lives only in this browser.</footer>
 </div>
 
@@ -963,7 +961,6 @@
   <div class="modal">
     <p class="modal-date" id="modalDate">—</p>
     <p class="modal-sub" id="modalSub">How did today go?</p>
-    <p class="modal-challenge" id="modalChallenge"></p>
     <textarea id="modalNote" placeholder="Optional note — cravings, wins, anything worth remembering…"></textarea>
     <div class="modal-actions">
       <button class="btn btn-ghost" id="btnCancel">Cancel</button>
@@ -1045,292 +1042,51 @@
   </div>
 </div>
 
-<div class="side-overlay" id="routinesOverlay">
-  <div class="side-panel" id="routinesPanel">
+<div class="side-overlay" id="notesOverlay">
+  <div class="side-panel" id="notesPanel">
     <div class="side-head">
-      <h2>My routines</h2>
-      <button class="side-close" id="closeRoutinesBtn">✕</button>
+      <h2>Notes</h2>
+      <button class="side-close" id="closeNotesBtn">✕</button>
     </div>
-    <p class="side-kicker">Tasks you tried, felt a real difference from, and decided to keep. Tap any one to see why it works and exactly how it's done.</p>
-    <div id="routinesList"></div>
+    <p class="side-kicker">Anything worth writing down. Pick a color, save it, find it here later.</p>
+
+    <div class="note-composer">
+      <input type="text" id="noteTitleInput" placeholder="Title" maxlength="60">
+      <input type="text" id="noteTopicInput" placeholder="Topic" maxlength="80">
+      <textarea id="noteInput" placeholder="Write a note…"></textarea>
+      <div class="note-color-row">
+        <span class="note-color-label">Color</span>
+        <div class="note-color-picker" id="noteColorPicker">
+          <button class="note-color-dot" data-color="pink" style="background:var(--pink)"></button>
+          <button class="note-color-dot" data-color="yellow" style="background:var(--yellow)"></button>
+          <button class="note-color-dot" data-color="green" style="background:var(--green)"></button>
+          <button class="note-color-dot" data-color="purple" style="background:var(--purple)"></button>
+          <button class="note-color-dot" data-color="blue" style="background:var(--blue)"></button>
+          <button class="note-color-dot" data-color="orange" style="background:var(--orange)"></button>
+          <button class="note-color-dot" data-color="teal" style="background:var(--teal)"></button>
+          <button class="note-color-dot" data-color="danger" style="background:var(--red-vivid)"></button>
+        </div>
+      </div>
+      <button class="note-save-btn" id="noteSaveBtn">Save note</button>
+      <button class="note-cancel-edit-btn" id="noteCancelEditBtn" style="display:none;">Cancel edit</button>
+    </div>
+
+    <div id="notesList"></div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ============ CONFIG — edit these two lines to fit your own timeline ============ */
+/* ============ CONFIG — edit these lines to fit your own timeline ============ */
 const START_DATE = '2026-09-09';   // first day of the streak (today)
-const PARTY_DATE = '2026-12-31';   // 🎉 the day you'll celebrate — change if the date is different
+const PARTY_DATES = ['2026-11-29', '2026-12-31'];   // 🎉 the days you'll celebrate — add/remove dates here
 /* ================================================================================= */
 
 const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const WEEKDAYS = ['S','M','T','W','T','F','S'];
 const STORAGE_KEY = 'dopamine_tracker_v1';
-const CHALLENGE_STORAGE_KEY = 'dopamine_tracker_challenges_v1';
-
-const CHALLENGES = [
-  {
-    id: "novelty-exposure",
-    title: "Deliberately do one small unfamiliar thing today — a new route somewhere, a food you've never tried, a place you've never been, even just rearranging your desk. It has to be genuinely new, not a repeat.",
-    duration: "15+ min",
-    importance: "high",
-    purpose: "Newness itself triggers the exact dopamine circuit this tracker is about — before any outcome, reward, or 'win' even happens.",
-    science: "Bunzeck & Düzel 2006, Neuron — brain imaging showed the dopamine-producing midbrain (substantia nigra/VTA) fired more strongly to simply novel images than to rewarding, arousing, or action-demanding ones — novelty is its own signal, separate from reward.",
-    levelUp: "Once small novelty feels easy, aim for something bigger and unplanned once a week — a genuinely new place or activity, not just a variation on your routine."
-  },
-  {
-    id: "declutter",
-    title: "Go through your phone and log out of, delete, or block every single app or bookmark that's ever been a trigger. Write the full list down as you do it.",
-    duration: "30+ min",
-    importance: "high",
-    purpose: "Removes the actual cue before it can fire — no willpower needed for a trigger that's gone.",
-    science: "Voon et al. 2014, PLOS ONE — cue exposure activated the same craving circuitry in compulsive users as drug cues in addiction. Removing the cue removes the trigger for that circuit.",
-    levelUp: "Once your triggers are gone, do a second pass weekly: check what's quietly crept back in."
-  },
-  {
-    id: "skill-practice",
-    title: "45+ min of deliberate practice on a real skill — an instrument, a language, a sport drill, weight training with progression. Phone in another room, no music.",
-    duration: "45+ min",
-    importance: "medium",
-    purpose: "Gives your reward circuit a real, earned win instead of a free, instant one.",
-    science: "Robertson et al. 2016 — the same trial found effort-based, goal-directed activity is what drove the receptor changes, not passive rest.",
-    levelUp: "Add one measurable goal each week (a new chord, a faster split, more weight) so the win stays real."
-  },
-  {
-    id: "urge-surf",
-    title: "The next time an urge hits, don't fight it and don't act on it. Set a 20-minute timer, sit with it, and rate its intensity out of 10 every 5 minutes in the notes.",
-    duration: "20 min, on-demand",
-    importance: "high",
-    purpose: "Proves to your own brain, in real time, that an urge peaks and falls on its own.",
-    science: "Mindfulness-Based Relapse Prevention (Bowen & Marlatt) — 'urge surfing' has published trial evidence for reducing relapse in addictive behaviours by teaching the brain that urges peak and fall without being obeyed.",
-    levelUp: "Once 20 minutes feels doable, drop the timer entirely — just ride it out until it actually passes."
-  },
-  {
-    id: "conversation",
-    title: "One real conversation, 30+ minutes, in person or on a call, with someone you actually trust — about anything, not necessarily this.",
-    duration: "30+ min",
-    importance: "medium",
-    purpose: "Lowers the stress that's usually the actual trigger, before it gets the chance to build.",
-    science: "Well-established stress-buffering research (Uchino et al.) — real social contact measurably lowers physiological stress reactivity, which is what usually fires the urge in the first place.",
-    levelUp: "Move from 'about anything' to naming one real thing you're dealing with — a small step up in honesty each time."
-  },
-  {
-    id: "deep-work",
-    title: "60–90 min of deep, single-task work or study on something you actually want to get good at. No tabs, no phone in the room.",
-    duration: "60–90 min",
-    importance: "medium",
-    purpose: "Retrains your brain to value a bigger, slower reward over a small, instant one.",
-    science: "Ties directly to the delay-discounting research below — sustained effort toward a delayed goal is the behaviour that retrains your brain to value the bigger, later reward over the small immediate one.",
-    levelUp: "Add 15 minutes every week or two, and start tracking what you actually produced, not just time spent."
-  },
-  {
-    id: "zero-input",
-    title: "30 minutes with zero input. No phone, no music, no people. Walk, sit, or just stare out a window.",
-    duration: "30 min",
-    importance: "medium",
-    purpose: "Builds tolerance for boredom — the exact opposite of the escalation pattern that got you here.",
-    science: "Builds tolerance for low-stimulation states — the direct opposite of the escalation pattern documented in the Voon et al. cue-reactivity findings.",
-    levelUp: "Stretch to 45–60 min once 30 feels easy, and try it somewhere with people around instead of alone."
-  },
-  {
-    id: "digital-sunset",
-    title: "Full digital sunset: no screens of any kind for the last 90 minutes before bed. Read, stretch, plan tomorrow on paper instead.",
-    duration: "90 min",
-    importance: "normal",
-    purpose: "Protects the one recovery window your brain gets every single day.",
-    science: "Randomized screen-time-reduction trials have shown measurable mood and self-control improvements over windows as short as two weeks — independent of any 'dopamine' framing.",
-    levelUp: "Push it to 2 hours before bed once 90 minutes feels normal, then try one full screen-free morning."
-  },
-  {
-    id: "body-sensation",
-    title: "Pick one physical sensation happening in your body right now — not what caused it, not what it means, just the raw sensation (tight, warm, heavy, tingling). Sit with only that description for 5 minutes. No cause, no story.",
-    duration: "5–10 min",
-    importance: "normal",
-    purpose: "Trains feeling something directly, instead of explaining it away.",
-    science: "Farb et al. 2007, Social Cognitive and Affective Neuroscience — mindfulness training measurably shifted brain activity away from the narrative self-network (medial prefrontal cortex) toward the direct-experience network (insula, somatosensory cortex) — the actual neural difference between feeling something and explaining it.",
-    levelUp: "Try naming two sensations at once, then three — the same skill the body scan uses at a bigger scale."
-  },
-  {
-    id: "name-the-feeling",
-    title: "Next time you catch yourself explaining someone's behaviour with a mechanism ('he's doing that because his brain released X'), stop. Instead just name what you feel watching them, one word, nothing else. Catch and write down 3 of these today.",
-    duration: "Ongoing, on-demand",
-    importance: "medium",
-    purpose: "Breaks the habit of analysing people instead of actually feeling anything around them.",
-    science: "Lisa Feldman Barrett's emotional granularity research — people who can precisely label their own felt states, instead of only reasoning about the mechanism behind them, show measurably better emotion regulation and lower stress reactivity.",
-    levelUp: "Once one word feels easy, add a second word for the same moment — most feelings aren't singular."
-  },
-  {
-    id: "heartbeat-count",
-    title: "Close your eyes for 60 seconds and count your own heartbeats by feel alone — no fingers on your pulse. Check how close you were. Repeat 3 times.",
-    duration: "10 min",
-    importance: "normal",
-    purpose: "Sharpens how accurately you sense your own body, not just think about it.",
-    science: "Garfinkel & Critchley 2013, Frontiers in Psychology — interoceptive accuracy (how precisely you sense internal body signals) is trainable through repeated practice like this, and higher accuracy is linked to richer, less detached emotional experience.",
-    levelUp: "Try it standing up, then right after light exercise — accuracy gets harder, which is the point of practicing."
-  },
-  {
-    id: "awe-outside",
-    title: "Go outside and find something genuinely huge — open sky, a tall building, a tree line, the sea if you have it. Just look at it for 10 straight minutes. Don't analyze it, don't photograph it, don't explain it to yourself.",
-    duration: "10 min",
-    importance: "normal",
-    purpose: "A brief, real dose of awe — one of the few things proven to quiet the analysing mind on contact.",
-    science: "Piff et al. 2015, Journal of Personality and Social Psychology — brief awe experiences measurably shrink self-focused, analytical processing (the 'small self' effect) and increase felt connection, replicated across multiple lab and field studies.",
-    levelUp: "Look for less obvious awe too — music, a skill performed well, a huge number — not just physical size."
-  },
-  {
-    id: "silent-meal",
-    title: "Eat one full meal today in total silence — phone away, no one talking. Pay attention only to taste and texture, sensation by sensation, bite by bite.",
-    duration: "20–30 min",
-    importance: "normal",
-    purpose: "Practice staying inside a sensory experience instead of narrating it.",
-    science: "Savoring research (Bryant & Veroff) shows that deliberately staying inside a sensory experience without narrating or analyzing it is a trainable skill that directly raises measured positive affect, separate from just having the experience.",
-    levelUp: "Once one meal feels easy, try a full day of eating with zero screens at any meal."
-  },
-  {
-    id: "nature-walk",
-    title: "Walk for 90 minutes somewhere with real nature — trees, water, open green space. No headphones, no calls.",
-    duration: "90 min",
-    importance: "high",
-    purpose: "Cools the exact rumination circuit that usually feeds the urge in the first place.",
-    science: "Bratman et al. 2015, PNAS — a 90-minute walk in a natural setting (versus an urban one) measurably reduced rumination and lowered activity in a brain region tied to dwelling on negative self-focused thoughts, scanned in the same people before and after.",
-    levelUp: "Extend to 2 hours, or find a quieter, greener route — the effect scales with how natural it feels."
-  },
-  {
-    id: "third-person-self-talk",
-    title: "Next time an urge, stress, or emotional spike hits, silently talk yourself through it using your own name instead of \"I\" — e.g. \"[Your name], this is happening because...\" not \"I'm feeling this because...\". Do it at least once today.",
-    duration: "5 min, on-demand",
-    importance: "high",
-    purpose: "An emotion-regulation switch that works almost instantly and takes zero willpower — you're not fighting the feeling, just changing the language your brain processes it in.",
-    science: "Kross et al. 2014, Journal of Personality and Social Psychology — across multiple studies, referring to yourself by name instead of \"I\" while processing a negative emotion measurably reduced the brain's emotional-distress response, with no extra mental effort required.",
-    levelUp: "Once it's automatic, catch the urge at the first flicker instead of at its peak — the earlier you switch the language, the less ground the feeling gets."
-  },
-  {
-    id: "gratitude-letter",
-    title: "Write a detailed letter thanking someone specific for something real they did for you — then read it to them out loud, in person or on a call. Don't just send it silently.",
-    duration: "30–45 min",
-    importance: "high",
-    purpose: "One of the highest-impact single actions ever tested for mood — and it isn't about you at all.",
-    science: "Seligman et al. 2005, American Psychologist — this single exercise, tested in a randomized trial, produced measurable jumps in happiness and drops in depressive symptoms still detectable a month later — one of the largest single-session effects ever recorded in this field.",
-    levelUp: "Write one every month, to a different person — the effect holds up on repeat, not just the first time."
-  },
-  {
-    id: "loving-kindness",
-    title: "10 minutes of loving-kindness meditation: silently wish specific people — yourself, someone you love, someone neutral — genuine wellbeing, one at a time, in order.",
-    duration: "10 min",
-    importance: "medium",
-    purpose: "Trains the exact circuit dopamine-chasing wears down — feeling good with no reward attached.",
-    science: "Fredrickson et al. 2008, Journal of Personality and Social Psychology — a randomized trial found daily practice built real, measurable increases in positive emotion and social connection over weeks, compounding rather than a one-off mood bump.",
-    levelUp: "Once the sequence feels natural, extend it to someone you're actually in conflict with — the harder, more valuable version."
-  },
-  {
-    id: "expressive-writing",
-    title: "Write continuously for 15–20 minutes about the deepest thoughts and feelings behind whatever's actually been weighing on you. Don't stop to edit, don't reread, just write.",
-    duration: "15–20 min",
-    importance: "normal",
-    purpose: "Turns whatever's looping silently in your head into something finished, instead of running forever.",
-    science: "Pennebaker &amp; Beall 1986, and dozens of replications since — expressive writing about a real personal difficulty produced measurable drops in stress markers and improved mood in the months after, compared with writing about a neutral topic.",
-    levelUp: "Do it 3–4 days in a row on the same topic — the original research used repeated sessions, not one."
-  },
-  {
-    id: "morning-light",
-    title: "Get outside within an hour of waking and get 10–15 minutes of direct daylight — no sunglasses, no phone.",
-    duration: "10–15 min",
-    importance: "medium",
-    purpose: "Anchors your body clock, which directly affects mood and impulse control for the rest of the day.",
-    science: "Golden et al. 2005, American Journal of Psychiatry — a meta-analysis of controlled trials found bright light exposure produced antidepressant effects comparable to many standard treatments, measurable within days.",
-    levelUp: "If it's cloudy or winter, stretch it to 20–30 minutes — you need more exposure when the light itself is weaker."
-  },
-  {
-    id: "strength-training",
-    title: "30+ minutes of resistance or weight training — real sets, real effort, progressive load if you can manage it.",
-    duration: "30+ min",
-    importance: "medium",
-    purpose: "One of the most consistently proven ways to lower anxiety — not just build muscle.",
-    science: "O'Connor et al. 2010, Exercise and Sport Sciences Reviews — a meta-analysis of dozens of controlled human trials found resistance training was linked to significant reductions in anxiety symptoms.",
-    levelUp: "Add weight or reps every 1–2 weeks — the anxiety-reduction effect tracks with progressive overload, not just showing up."
-  },
-  {
-    id: "reappraisal",
-    title: "Pick one thing that's stressing you right now. Write it down, then write a second, more accurate and less catastrophic way of seeing the exact same fact.",
-    duration: "10–15 min",
-    importance: "high",
-    purpose: "This single skill, tested directly in the brain, physically turns your amygdala down.",
-    science: "Ochsner et al. 2002, Journal of Cognitive Neuroscience — reappraising the meaning of a distressing image measurably reduced amygdala activation on fMRI, in real time, within the same session.",
-    levelUp: "Once small stressors feel easy, try it on a bigger one — the skill transfers, but it's built on small reps first."
-  },
-  {
-    id: "prosocial-spending",
-    title: "Spend even a small amount of money on someone else today — a gift, a coffee, help with a bill. Not on yourself.",
-    duration: "15+ min",
-    importance: "normal",
-    purpose: "Genuinely more effective at lifting your own mood than spending the same amount on yourself.",
-    science: "Dunn, Aknin &amp; Norton 2008, Science — in a randomized study, people assigned to spend money on someone else reported significantly greater happiness that evening than those told to spend it on themselves.",
-    levelUp: "Increase the amount slightly over time, and try doing it for a stranger, not just people you already know."
-  },
-  {
-    id: "warm-contact",
-    title: "A real hug or sustained physical contact (10+ seconds) with someone you trust — partner, close friend, family.",
-    duration: "10+ sec, repeatable",
-    importance: "normal",
-    purpose: "A fast, measurable way to lower stress hormones without touching a screen.",
-    science: "Light, Grewen &amp; Amico 2005, Biological Psychology — more frequent partner hugs and contact were linked to higher oxytocin and lower blood pressure and heart rate in the same people, measured directly.",
-    levelUp: "Extend the contact to 20–30 seconds — longer contact is linked to a bigger oxytocin response in this research."
-  },
-  {
-    id: "body-scan",
-    title: "15-minute full body scan: lie down and move your attention slowly through every part of your body in order, noticing sensation without changing anything.",
-    duration: "15 min",
-    importance: "normal",
-    purpose: "Builds the same interoceptive skill as the heartbeat task, at a slower, fuller scale.",
-    science: "Grossman et al. 2004, Journal of Psychosomatic Research — a meta-analysis of mindfulness-based stress reduction programs, which use this exact exercise, found consistent, moderate-to-large reductions in stress and anxiety.",
-    levelUp: "Slow it down further — spend a full minute on each body part instead of moving quickly through the whole thing."
-  },
-  {
-    id: "values-writing",
-    title: "Write for 10 minutes about the one personal value that matters most to you, and a specific time you actually lived it. Nothing about the thing you're giving up.",
-    duration: "10 min",
-    importance: "high",
-    purpose: "Makes your self-control physically more resilient under stress, not just more motivated.",
-    science: "Creswell et al. 2005, Psychological Science — writing about a core personal value before a stressful task measurably blunted the cortisol stress response, compared with writing about something neutral.",
-    levelUp: "Do this specifically on a morning you know will be stressful — that's exactly when the effect was measured."
-  },
-  {
-    id: "habit-anchor",
-    title: "Pick one small new habit and do it in the exact same context every day this week — right after an existing routine, like straight after brushing your teeth or straight after sitting at your desk.",
-    duration: "Ongoing, daily",
-    importance: "medium",
-    purpose: "A consistent context does more to make a behaviour automatic than willpower ever will.",
-    science: "Lally et al. 2010, European Journal of Social Psychology — tracking 96 people building a real daily habit found repetition in a stable context is what drove automaticity, though it took a median of about 66 days, not the popular '21 days' claim.",
-    levelUp: "Once it runs without thinking, stack a second small habit right after the first one."
-  },
-  {
-    id: "behavioral-activation",
-    title: "Schedule and actually do one small enjoyable activity and one small 'accomplishment' activity today — pick both in advance, in writing, before the day gets away from you.",
-    duration: "Varies",
-    importance: "high",
-    purpose: "This exact mechanism is one of the most proven treatments for low mood that exists, independent of medication.",
-    science: "Dimidjian et al. 2006, Journal of Consulting and Clinical Psychology — behavioural activation (scheduling and completing meaningful activities) performed as well as antidepressant medication for moderate-to-severe depression in a randomized clinical trial.",
-    levelUp: "Add a third category — something social — once the first two feel automatic."
-  },
-  {
-    id: "future-self",
-    title: "Picture yourself exactly one year from today in specific, concrete detail — where you are, what a normal day looks like, how you carry yourself. Write it in the present tense.",
-    duration: "15–20 min",
-    importance: "medium",
-    purpose: "Makes your future self feel like a real person to your brain instead of an abstraction — and that changes what you're willing to do today.",
-    science: "Hershfield et al. 2011, Journal of Marketing Research — increasing the vividness of a person's future self, even through simple visualization, measurably reduced impulsive, present-biased choices in the same session.",
-    levelUp: "Push the timeline out further — 5 years instead of 1 — and add real detail about health and relationships, not just achievements."
-  }
-];
-
-function getChallengeById(id){ return CHALLENGES.find(c => c.id === id); }
-
-function hashDate(key){
-  let h = 0;
-  for (let i=0; i<key.length; i++){ h = (h*31 + key.charCodeAt(i)) >>> 0; }
-  return h;
-}
+const NOTES_STORAGE_KEY = 'dopamine_tracker_notes_v1';
 
 function parseDate(s){ const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); }
 function toKey(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
@@ -1338,56 +1094,18 @@ function sameDay(a,b){ return toKey(a)===toKey(b); }
 function daysBetween(a,b){ return Math.round((b.setHours(0,0,0,0)-a.setHours(0,0,0,0))/86400000); }
 
 const start = parseDate(START_DATE);
-const partyDate = parseDate(PARTY_DATE);
+const partyDates = PARTY_DATES.map(parseDate);
+const partyDate = partyDates.reduce((latest, d) => d > latest ? d : latest, partyDates[0]);
+function isPartyDay(d){ return partyDates.some(p => sameDay(d, p)); }
 const today = new Date(); today.setHours(0,0,0,0);
 
 let data = {};
 try{ data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }catch(e){ data = {}; }
 function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
 
-let challengeData = {};
-try{ challengeData = JSON.parse(localStorage.getItem(CHALLENGE_STORAGE_KEY)) || {}; }catch(e){ challengeData = {}; }
-function saveChallenges(){ localStorage.setItem(CHALLENGE_STORAGE_KEY, JSON.stringify(challengeData)); }
-
-const ROUTINES_STORAGE_KEY = 'dopamine_tracker_routines_v1';
-let routines = {};
-try{ routines = JSON.parse(localStorage.getItem(ROUTINES_STORAGE_KEY)) || {}; }catch(e){ routines = {}; }
-function saveRoutines(){ localStorage.setItem(ROUTINES_STORAGE_KEY, JSON.stringify(routines)); }
-
-const ROUTINE_LOG_KEY = 'dopamine_tracker_routine_logs_v1';
-let routineLogs = {};
-try{ routineLogs = JSON.parse(localStorage.getItem(ROUTINE_LOG_KEY)) || {}; }catch(e){ routineLogs = {}; }
-function saveRoutineLogs(){ localStorage.setItem(ROUTINE_LOG_KEY, JSON.stringify(routineLogs)); }
-
-function routineStats(id){
-  const log = routineLogs[id] || {};
-  const total = Object.keys(log).filter(k => log[k]).length;
-  let streak = 0;
-  let cursor = new Date(today);
-  while (true){
-    const key = toKey(cursor);
-    if (log[key]){ streak++; cursor.setDate(cursor.getDate()-1); }
-    else break;
-  }
-  const lastKey = Object.keys(log).filter(k=>log[k]).sort().pop();
-  return { total, streak, lastDate: lastKey || null };
-}
-
-function toggleRoutineToday(id){
-  const key = toKey(today);
-  routineLogs[id] = routineLogs[id] || {};
-  routineLogs[id][key] = !routineLogs[id][key];
-  saveRoutineLogs();
-}
-
-function getChallengeForDate(dateObj){
-  const h = hashDate(toKey(dateObj));
-  // Purely random-feeling, but stable for the day: roughly half the days
-  // have no scheduled practice at all — you don't know in advance which.
-  if (h % 100 < 45) return null;
-  const idx = Math.floor(h / 97) % CHALLENGES.length;
-  return CHALLENGES[idx];
-}
+let notes = [];
+try{ notes = JSON.parse(localStorage.getItem(NOTES_STORAGE_KEY)) || []; }catch(e){ notes = []; }
+function saveNotes(){ localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notes)); }
 
 document.getElementById('startLabel').textContent = start.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
 
@@ -1435,24 +1153,18 @@ function buildMonths(){
       const key = toKey(dateObj);
       const isBeforeStart = dateObj < start;
       const isAfterParty = dateObj > partyDate;
-      const isParty = sameDay(dateObj, partyDate);
+      const isParty = isPartyDay(dateObj);
       const isToday = sameDay(dateObj, today);
       const isFuture = dateObj > today;
       const checked = !!(data[key] && data[key].checked);
 
       let cls = 'day';
-      let clickable = false;
+      let clickable = true;
 
-      if (isBeforeStart || isAfterParty){
-        cls += ' out-of-range';
-      } else if (isParty){
+      if (isParty){
         cls += ' party-day';
-        clickable = true;
-      } else if (isFuture){
-        cls += ' future';
       } else {
         cls += ' eligible';
-        clickable = true;
       }
       if (isToday) cls += ' today';
       if (checked) cls += ' checked';
@@ -1549,14 +1261,13 @@ function render(){
     const numDays = new Date(year, month+1, 0).getDate();
     for (let d=1; d<=numDays; d++){
       const dateObj = new Date(year, month, d);
-      if (dateObj < start || dateObj > partyDate || sameDay(dateObj, partyDate) || dateObj > today) continue;
+      if (dateObj < start || dateObj > partyDate || isPartyDay(dateObj) || dateObj > today) continue;
       totalEligible++;
       if (data[toKey(dateObj)] && data[toKey(dateObj)].checked) totalChecked++;
     }
   });
 
   updateStats(totalEligible, totalChecked);
-  renderChallenge();
 }
 
 function updateStats(totalEligible, totalChecked){
@@ -1573,145 +1284,142 @@ function updateStats(totalEligible, totalChecked){
   }
   document.getElementById('streakNum').textContent = streak;
 
-  const partyDelta = Math.max(0, daysBetween(new Date(today), new Date(partyDate)));
+  const upcomingParty = partyDates.filter(p => p >= today).sort((a,b)=>a-b)[0] || partyDate;
+  const partyDelta = Math.max(0, daysBetween(new Date(today), new Date(upcomingParty)));
   document.getElementById('partyNum').textContent = partyDelta;
 }
 
-function renderChallenge(){
-  const key = toKey(today);
-  const c = getChallengeForDate(today);
-  const card = document.querySelector('.challenge');
-  const btn = document.getElementById('challengeDoneBtn');
-  const routineBtn = document.getElementById('routineToggleBtn');
-  const purposeEl = document.getElementById('challengePurpose');
-  const eyebrow = document.querySelector('.challenge-eyebrow');
+/* ---------- notes panel ---------- */
+let selectedNoteColor = 'purple';
+let editingNoteId = null;
 
-  card.classList.remove('importance-high','importance-medium','importance-normal');
-
-  if (!c){
-    card.classList.add('importance-normal');
-    purposeEl.textContent = 'No set practice today';
-    purposeEl.style.display = '';
-    eyebrow.textContent = 'Today';
-    document.getElementById('challengeDuration').textContent = '—';
-    document.getElementById('challengeText').textContent = 'Nothing scheduled today. Nothing to prove — just notice how today feels.';
-    document.getElementById('challengeScience').textContent = '';
-    btn.style.display = 'none';
-    routineBtn.style.display = 'none';
-    return;
-  }
-
-  card.classList.add('importance-' + c.importance);
-  purposeEl.style.display = '';
-  purposeEl.textContent = c.purpose;
-  eyebrow.textContent = "Today's practice" + (c.importance === 'high' ? ' — core' : c.importance === 'medium' ? ' — worth it' : '');
-  document.getElementById('challengeDuration').textContent = c.duration;
-  document.getElementById('challengeText').textContent = c.title;
-  document.getElementById('challengeScience').textContent = '🔬 ' + c.science;
-  btn.style.display = '';
-  const done = !!challengeData[key];
-  btn.classList.toggle('done', done);
-
-  routineBtn.style.display = '';
-  const inRoutine = !!routines[c.id];
-  routineBtn.textContent = inRoutine ? '✓ In my routines' : '🔁 Add to my routines';
-  routineBtn.classList.toggle('active', inRoutine);
+function selectNoteColor(color){
+  selectedNoteColor = color;
+  document.querySelectorAll('.note-color-dot').forEach(d => d.classList.toggle('selected', d.getAttribute('data-color') === color));
 }
 
-document.getElementById('challengeDoneBtn').addEventListener('click', ()=>{
-  const key = toKey(today);
-  challengeData[key] = !challengeData[key];
-  saveChallenges();
-  renderChallenge();
-  if (challengeData[key]) showToast('Challenge done 🎯');
-});
-
-document.getElementById('routineToggleBtn').addEventListener('click', ()=>{
-  const c = getChallengeForDate(today);
-  if (!c) return;
-  routines[c.id] = !routines[c.id];
-  saveRoutines();
-  renderChallenge();
-  renderRoutinesList();
-  showToast(routines[c.id] ? 'Added to your routines 🔁' : 'Removed from your routines');
-});
-
-/* ---------- routines panel ---------- */
-function renderRoutinesList(){
-  const list = document.getElementById('routinesList');
-  const ids = Object.keys(routines).filter(id => routines[id]);
-  if (ids.length === 0){
-    list.innerHTML = '<p class="routines-empty">No routines yet. When a task actually makes a difference, open it and tap "Add to my routines" — it\'ll show up here with its own tracking.</p>';
+function renderNotesList(){
+  const list = document.getElementById('notesList');
+  if (notes.length === 0){
+    list.innerHTML = '<p class="routines-empty">No notes yet. Write one above and save it.</p>';
     return;
   }
-  const todayKey = toKey(today);
-  list.innerHTML = ids.map(id => {
-    const c = getChallengeById(id);
-    if (!c) return '';
-    const tagLabel = c.importance === 'high' ? '🔴 Core practice' : c.importance === 'medium' ? '🟡 Also worth it' : '';
-    const stats = routineStats(id);
-    const doneToday = !!(routineLogs[id] && routineLogs[id][todayKey]);
-    return `
-      <div class="routine-item importance-${c.importance}" data-id="${id}">
-        <div class="routine-item-head">
-          <div>
-            <b>${c.title.split(/[—.]/)[0].trim()}</b>
-            <div class="routine-item-stats">🔥 ${stats.streak}-day streak · ${stats.total} total</div>
-          </div>
-          <span class="routine-item-chevron">▾</span>
-        </div>
-        <div class="routine-item-body">
-          <div class="r-row"><b>Why:</b> ${c.purpose}</div>
-          <div class="r-row"><b>What to do:</b> ${c.title}</div>
-          <div class="r-row"><b>How long:</b> ${c.duration}${tagLabel ? ' · ' + tagLabel : ''}</div>
-          <div class="r-row"><b>The science:</b> 🔬 ${c.science}</div>
-          <div class="r-row levelup"><b>🔼 How to strengthen it:</b> ${c.levelUp || 'Keep the routine consistent before changing anything — consistency is the foundation.'}</div>
-          <div class="routine-actions">
-            <button class="routine-mark-btn ${doneToday ? 'done' : ''}" data-mark="${id}">${doneToday ? '✓ Done today' : 'Mark done today'}</button>
-            <button class="routine-remove-btn" data-remove="${id}">Remove from my routines</button>
+  const sorted = [...notes].sort((a,b) => b.createdAt - a.createdAt);
+  list.innerHTML = sorted.map(n => `
+    <div class="note-item note-color-${n.color}" data-id="${n.id}">
+      <div class="note-item-head">
+        <span class="note-item-title">${(n.title || 'Untitled').replace(/</g,'&lt;')}</span>
+        <span class="note-item-chevron">▾</span>
+      </div>
+      <div class="note-item-divider"></div>
+      <div class="note-item-topic-wrap">
+        <div class="note-item-topic">${(n.topic || 'Untitled').replace(/</g,'&lt;')}</div>
+      </div>
+      <div class="note-item-body">
+        <div class="note-item-text">${n.text.replace(/</g,'&lt;')}</div>
+        <div class="note-item-foot">
+          <span class="note-item-date">${new Date(n.createdAt).toLocaleDateString('en-US', {month:'short', day:'numeric'})}</span>
+          <div class="note-item-actions">
+            <button class="note-edit-btn" data-edit="${n.id}">Edit</button>
+            <button class="note-remove-btn" data-remove="${n.id}">Delete</button>
           </div>
         </div>
-      </div>`;
-  }).join('');
+      </div>
+    </div>`).join('');
 
-  list.querySelectorAll('.routine-item-head').forEach(head=>{
-    head.addEventListener('click', ()=> head.closest('.routine-item').classList.toggle('open'));
+  list.querySelectorAll('.note-item-head, .note-item-topic-wrap').forEach(el=>{
+    el.addEventListener('click', ()=> el.closest('.note-item').classList.toggle('open'));
   });
-  list.querySelectorAll('[data-mark]').forEach(btn=>{
+  list.querySelectorAll('[data-edit]').forEach(btn=>{
     btn.addEventListener('click', (e)=>{
       e.stopPropagation();
-      const id = btn.getAttribute('data-mark');
-      toggleRoutineToday(id);
-      renderRoutinesList();
-      const item = list.querySelector(`.routine-item[data-id="${id}"]`);
-      if (item) item.classList.add('open');
+      const id = btn.getAttribute('data-edit');
+      const n = notes.find(x => String(x.id) === id);
+      if (!n) return;
+      editingNoteId = n.id;
+      document.getElementById('noteTitleInput').value = n.title === 'Untitled' ? '' : n.title;
+      document.getElementById('noteTopicInput').value = n.topic === 'Untitled' ? '' : (n.topic || '');
+      document.getElementById('noteInput').value = n.text;
+      selectNoteColor(n.color);
+      document.getElementById('noteSaveBtn').textContent = 'Update note';
+      document.getElementById('noteCancelEditBtn').style.display = '';
+      document.querySelector('.note-composer').scrollIntoView({ behavior:'smooth', block:'start' });
     });
   });
   list.querySelectorAll('[data-remove]').forEach(btn=>{
     btn.addEventListener('click', (e)=>{
       e.stopPropagation();
       const id = btn.getAttribute('data-remove');
-      routines[id] = false;
-      saveRoutines();
-      renderRoutinesList();
-      renderChallenge();
+      notes = notes.filter(n => String(n.id) !== id);
+      saveNotes();
+      if (editingNoteId && String(editingNoteId) === id) resetNoteComposer();
+      renderNotesList();
     });
   });
 }
 
-const routinesOverlay = document.getElementById('routinesOverlay');
-document.getElementById('openRoutinesBtn').addEventListener('click', ()=>{
-  renderRoutinesList();
-  routinesOverlay.classList.add('open');
+function resetNoteComposer(){
+  editingNoteId = null;
+  document.getElementById('noteTitleInput').value = '';
+  document.getElementById('noteTopicInput').value = '';
+  document.getElementById('noteInput').value = '';
+  selectNoteColor('purple');
+  document.getElementById('noteSaveBtn').textContent = 'Save note';
+  document.getElementById('noteCancelEditBtn').style.display = 'none';
+}
+
+document.querySelectorAll('.note-color-dot').forEach(dot=>{
+  dot.addEventListener('click', ()=> selectNoteColor(dot.getAttribute('data-color')));
 });
-document.getElementById('closeRoutinesBtn').addEventListener('click', ()=> routinesOverlay.classList.remove('open'));
-routinesOverlay.addEventListener('click', (e)=>{ if (e.target === routinesOverlay) routinesOverlay.classList.remove('open'); });
+selectNoteColor('purple');
+
+document.getElementById('noteCancelEditBtn').addEventListener('click', resetNoteComposer);
+
+document.getElementById('noteSaveBtn').addEventListener('click', ()=>{
+  const titleInput = document.getElementById('noteTitleInput');
+  const topicInput = document.getElementById('noteTopicInput');
+  const input = document.getElementById('noteInput');
+  const title = titleInput.value.trim();
+  const topic = topicInput.value.trim();
+  const text = input.value.trim();
+  if (!title && !topic && !text) return;
+
+  if (editingNoteId){
+    const n = notes.find(x => x.id === editingNoteId);
+    if (n){
+      n.title = title || 'Untitled';
+      n.topic = topic || 'Untitled';
+      n.text = text;
+      n.color = selectedNoteColor;
+    }
+    saveNotes();
+    resetNoteComposer();
+    renderNotesList();
+    showToast('Note updated ✏️');
+    return;
+  }
+
+  notes.push({ id: Date.now(), title: title || 'Untitled', topic: topic || 'Untitled', text, color: selectedNoteColor, createdAt: Date.now() });
+  saveNotes();
+  titleInput.value = '';
+  topicInput.value = '';
+  input.value = '';
+  renderNotesList();
+  showToast('Note saved 📝');
+});
+
+const notesOverlay = document.getElementById('notesOverlay');
+document.getElementById('openNotesBtn').addEventListener('click', ()=>{
+  renderNotesList();
+  notesOverlay.classList.add('open');
+});
+document.getElementById('closeNotesBtn').addEventListener('click', ()=> notesOverlay.classList.remove('open'));
+notesOverlay.addEventListener('click', (e)=>{ if (e.target === notesOverlay) notesOverlay.classList.remove('open'); });
 
 /* ---------- modal ---------- */
 const overlay = document.getElementById('overlay');
 const modalDate = document.getElementById('modalDate');
 const modalSub = document.getElementById('modalSub');
-const modalChallenge = document.getElementById('modalChallenge');
 const modalNote = document.getElementById('modalNote');
 const btnSave = document.getElementById('btnSave');
 const btnUnmark = document.getElementById('btnUnmark');
@@ -1721,13 +1429,11 @@ let activeKey = null;
 function openModal(key){
   activeKey = key;
   const d = parseDate(key);
-  const isParty = sameDay(d, partyDate);
+  const isParty = isPartyDay(d);
   modalDate.textContent = d.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'}) + (isParty ? '  🎉' : '');
   const entry = data[key];
   const checked = !!(entry && entry.checked);
   modalSub.textContent = isParty ? "It's the day you're celebrating. However it goes, log it." : (checked ? 'Already marked clean — edit your note or unmark.' : 'How did today go?');
-  const dayChallenge = getChallengeForDate(d);
-  modalChallenge.textContent = dayChallenge ? ('🎯 [' + dayChallenge.duration + '] ' + dayChallenge.title) : '🎯 No practice was scheduled that day.';
   modalNote.value = entry && entry.note ? entry.note : '';
   btnUnmark.style.display = checked ? 'inline-block' : 'none';
   btnSave.textContent = checked ? 'Save note' : 'Mark clean ✓';
@@ -1738,7 +1444,7 @@ function closeModal(){ overlay.classList.remove('open'); activeKey = null; }
 
 btnCancel.addEventListener('click', closeModal);
 overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(); });
-document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ closeModal(); closeSide(); routinesOverlay.classList.remove('open'); }});
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ closeModal(); closeSide(); notesOverlay.classList.remove('open'); }});
 
 btnSave.addEventListener('click', ()=>{
   if (!activeKey) return;
@@ -1746,7 +1452,7 @@ btnSave.addEventListener('click', ()=>{
   save();
   closeModal();
   render();
-  showToast(sameDay(parseDate(activeKey), partyDate) ? 'Logged 🎉' : 'Marked clean ✓');
+  showToast(isPartyDay(parseDate(activeKey)) ? 'Logged 🎉' : 'Marked clean ✓');
 });
 
 btnUnmark.addEventListener('click', ()=>{
